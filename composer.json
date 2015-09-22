@@ -1,0 +1,48 @@
+{
+    "name": "{{lcPluginName}}",
+    "description": "{{@TODO description}}",
+    "type": "cakephp-plugin",
+    "keywords": [
+        "cakephp",
+        "{{lcPluginName}}"
+    ],
+    "homepage": "https://github.com/friendsofcake/{{lcPluginName}}",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jad Bitar",
+            "homepage": "http://jadb.io",
+            "role": "Author"
+        },
+        {
+            "name": "ADmad",
+            "homepage": "https://github.com/ADmad",
+            "role": "Author"
+        },
+        {
+            "name": "Others",
+            "homepage": "https://github.com/friendsofcake/{{lcPluginName}}/graphs/contributors"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/friendsofcake/{{lcPluginName}}/issues",
+        "source": "https://github.com/friendsofcake/{{lcPluginName}}"
+    },
+    "require": {
+    },
+    "require-dev": {
+        "cakephp/cakephp": "~3.0",
+        "cakephp/cakephp-codesniffer": "2.*",
+        "phpunit/phpunit": "4.1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "{{pluginName}}\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "{{pluginName}}\\Test\\": "tests"
+        }
+    }
+}
