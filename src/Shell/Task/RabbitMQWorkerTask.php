@@ -14,7 +14,8 @@ use RuntimeException;
  *
  * @property \ProcessManager\Shell\Task\ProcessManagerTask ProcessManager
  */
-class RabbitMQWorkerTask extends Shell {
+class RabbitMQWorkerTask extends Shell
+{
 
     use EventDispatcherTrait;
 
@@ -46,7 +47,8 @@ class RabbitMQWorkerTask extends Shell {
      * @param callable $callable
      * @return void
      */
-    public function consume($config, callable $callable) {
+    public function consume($config, callable $callable)
+    {
         $this->ProcessManager->handleKillSignals();
         $this->eventManager()->attach([$this, 'signalHandler'], 'CLI.signal', ['priority' => 100]);
 
@@ -61,10 +63,11 @@ class RabbitMQWorkerTask extends Shell {
      * @param callable $callable
      * @return void
      */
-    protected function _consume(AMQPQueue $queue, callable $callable) {
+    protected function _consume(AMQPQueue $queue, callable $callable)
+    {
         $tag = uniqid() . microtime(true);
 
-        $callback = function(AMQPEnvelope $envelope, AMQPQueue $queue) use ($callable) {
+        $callback = function (AMQPEnvelope $envelope, AMQPQueue $queue) use ($callable) {
             return $this->_callback($callable, $envelope, $queue);
         };
 
@@ -81,7 +84,8 @@ class RabbitMQWorkerTask extends Shell {
      * @throws \Exception
      * @throws \RuntimeException
      */
-    protected function _callback(callable $callable, AMQPEnvelope $envelope, AMQPQueue $queue) {
+    protected function _callback(callable $callable, AMQPEnvelope $envelope, AMQPQueue $queue)
+    {
         if ($this->stop) {
             return false;
         }
@@ -140,7 +144,8 @@ class RabbitMQWorkerTask extends Shell {
      *
      * @return void
      */
-    public function signalHandler() {
+    public function signalHandler()
+    {
         if (!$this->_working) {
             $this->log('Not doing any jobs, going to die now...', 'warning');
             $this->_stop();

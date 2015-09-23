@@ -12,7 +12,8 @@ use RuntimeException;
  * RabbitMQ Connection object
  *
  */
-class RabbitMQConnection {
+class RabbitMQConnection
+{
 
     /**
      * Configuration options
@@ -74,7 +75,8 @@ class RabbitMQConnection {
     /**
      * Initializes connection to RabbitMQ
      */
-    public function __construct($config = []) {
+    public function __construct($config = [])
+    {
         $this->_config = $config + $this->_config;
         $this->_connection = new AMQPConnection();
         $this->connect();
@@ -85,7 +87,8 @@ class RabbitMQConnection {
      *
      * @return array
      */
-    public function config() {
+    public function config()
+    {
         return $this->_config;
     }
 
@@ -94,7 +97,8 @@ class RabbitMQConnection {
      *
      * @return string
      */
-    public function configName() {
+    public function configName()
+    {
         if (empty($this->_config['name'])) {
             return '';
         }
@@ -109,7 +113,8 @@ class RabbitMQConnection {
      *   Use null to read current value.
      * @return bool
      */
-    public function logQueries($enable = null) {
+    public function logQueries($enable = null)
+    {
         if ($enable !== null) {
             $this->_logQueries = $enable;
         }
@@ -128,7 +133,8 @@ class RabbitMQConnection {
      * @param object $logger logger object instance
      * @return object logger instance
      */
-    public function logger($logger = null) {
+    public function logger($logger = null)
+    {
         if ($logger) {
             $this->_logger = $logger;
         }
@@ -146,7 +152,8 @@ class RabbitMQConnection {
      *
      * @return void
      */
-    public function connect() {
+    public function connect()
+    {
         $connection = $this->_connection;
         $connection->setLogin($this->_config['user']);
         $connection->setPassword($this->_config['password']);
@@ -170,7 +177,8 @@ class RabbitMQConnection {
      *
      * @return AMQPConnection
      */
-    public function connection() {
+    public function connection()
+    {
         return $this->_connection;
     }
 
@@ -180,7 +188,8 @@ class RabbitMQConnection {
      * @param array $options
      * @return AMQPChannel
      */
-    public function channel($name, $options = []) {
+    public function channel($name, $options = [])
+    {
         if (empty($this->_channels[$name])) {
             $this->_channels[$name] = new AMQPChannel($this->connection());
             if (!empty($options['prefetchCount'])) {
@@ -199,7 +208,8 @@ class RabbitMQConnection {
      * @param array $options
      * @return AMQPExchange
      */
-    public function exchange($name, $options = []) {
+    public function exchange($name, $options = [])
+    {
         if (empty($this->_exchanges[$name])) {
             $channel = $this->channel($name, $options);
             $exchange = new AMQPExchange($channel);
@@ -227,7 +237,8 @@ class RabbitMQConnection {
      * @param array $options
      * @return AMQPQueue
      */
-    public function queue($name, $options = []) {
+    public function queue($name, $options = [])
+    {
         if (empty($this->_queues[$name])) {
             $channel = $this->channel($name, $options);
             $queue = new AMQPQueue($channel);
@@ -253,7 +264,8 @@ class RabbitMQConnection {
      * @param array $options
      * @return boolean
      */
-    public function send($topic, $task, $data, array $options = []) {
+    public function send($topic, $task, $data, array $options = [])
+    {
         list($data, $attributes, $options) = $this->_prepareMessage($data, $options);
         return $this->exchange($topic)->publish($data, $task, AMQP_NOPARAM, $attributes);
     }
@@ -267,7 +279,8 @@ class RabbitMQConnection {
      * @param array $options
      * @return boolean
      */
-    public function sendBatch($topic, $task, array $messages, array $options = []) {
+    public function sendBatch($topic, $task, array $messages, array $options = [])
+    {
         return array_walk($messages, function ($data) use ($topic, $task, $options) {
             $this->send($topic, $task, $data, $options);
         });
@@ -282,7 +295,8 @@ class RabbitMQConnection {
      * @param  array $options
      * @return array
      */
-    protected function _prepareMessage($data, array $options) {
+    protected function _prepareMessage($data, array $options)
+    {
         $attributes = [];
 
         $options += [
@@ -317,5 +331,4 @@ class RabbitMQConnection {
 
         return [$data, $attributes, $options];
     }
-
 }

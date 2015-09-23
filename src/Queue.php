@@ -8,7 +8,8 @@ use Cake\Datasource\ConnectionManager;
  * Queue utility class making working with RabbitMQ a lot easier
  *
  */
-class Queue {
+class Queue
+{
 
     /**
      * Queue configuration read from the YAML file
@@ -38,7 +39,8 @@ class Queue {
      * @return \AMQPQueue
      * @throws \Exception on missing consumer configuration.
      */
-    public static function consume($name) {
+    public static function consume($name)
+    {
         $config = static::get($name);
         if (empty($config['consume'])) {
             throw new Exception('Missing consumer configuration (' . $name . ')');
@@ -66,7 +68,8 @@ class Queue {
      * @param  array  $options
      * @return boolean
      */
-    public static function publish($name, $data, array $options = []) {
+    public static function publish($name, $data, array $options = [])
+    {
         $config = static::get($name);
         if (empty($config['publish'])) {
             throw new Exception('Missing publisher configuration (' . $name . ')');
@@ -92,7 +95,8 @@ class Queue {
      * @param  string $name
      * @return boolean
      */
-    public static function configured($name) {
+    public static function configured($name)
+    {
         static::_load();
         return array_key_exists($name, static::$_config);
     }
@@ -103,7 +107,8 @@ class Queue {
      * @param  string $name
      * @return array
      */
-    public static function get($name) {
+    public static function get($name)
+    {
         if (!static::configured($name)) {
             throw new Exception([$name]);
         }
@@ -116,7 +121,8 @@ class Queue {
      *
      * @return void
      */
-    public static function clear()  {
+    public static function clear()
+    {
         static::$_config = [];
         static::$_publishers = [];
         static::$_consumers = [];
@@ -128,7 +134,8 @@ class Queue {
      * @return void
      * @throw \Exception on missing or invalid queue configuration.
      */
-    protected static function _load() {
+    protected static function _load()
+    {
         if (!empty(static::$_config)) {
             return;
         }
@@ -148,7 +155,8 @@ class Queue {
     /**
      * Class is purely static and singleton
      */
-    protected function __construct() {
+    protected function __construct()
+    {
 
     }
 }
