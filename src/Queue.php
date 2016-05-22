@@ -1,6 +1,7 @@
 <?php
 namespace ProcessMQ;
 
+use Cake\Core\Configure;
 use Cake\Core\Exception\Exception;
 use Cake\Datasource\ConnectionManager;
 
@@ -129,27 +130,16 @@ class Queue
     }
 
     /**
-     * Load the queue configuration yaml file
+     * Load the configuration array
      *
      * @return void
-     * @throw \Exception on missing or invalid queue configuration.
      */
     protected static function _load()
     {
         if (!empty(static::$_config)) {
             return;
         }
-
-        $file = CONFIG . 'queue.yaml';
-        if (!file_exists($file)) {
-            throw new Exception('Missing queue configuration file (' . $file . ')');
-        }
-
-        static::$_config = yaml_parse_file($file);
-
-        if (empty(static::$_config) || !is_array(static::$_config)) {
-            throw new Exception('Invalid queue configuration');
-        }
+        static::$_config = Configure::read('Queues') ?: [];
     }
 
     /**
