@@ -1,8 +1,8 @@
-# {{pluginName}}
+# ProcessMQ
 
-[![Build Status](https://img.shields.io/travis/FriendsOfCake/{{pluginName}}/master.svg?style=flat-square)](https://travis-ci.org/FriendsOfCake/{{pluginName}})
-[![Coverage](https://img.shields.io/coveralls/FriendsOfCake/{{pluginName}}/master.svg?style=flat-square)](https://coveralls.io/r/FriendsOfCake/{{pluginName}})
-[![Total Downloads](https://img.shields.io/packagist/dt/friendsofcake/{{lcPluginName}}.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/{{lcPluginName}})
+[![Build Status](https://img.shields.io/travis/FriendsOfCake/process-mq/master.svg?style=flat-square)](https://travis-ci.org/FriendsOfCake/process-mq)
+[![Coverage](https://img.shields.io/coveralls/FriendsOfCake/process-mq/master.svg?style=flat-square)](https://coveralls.io/r/FriendsOfCake/process-mq)
+[![Total Downloads](https://img.shields.io/packagist/dt/friendsofcake/process-mq.svg?style=flat-square)](https://packagist.org/packages/friendsofcake/process-mq)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
 {{@TODO description}}
@@ -12,19 +12,19 @@
 Using [Composer][composer]:
 
 ```
-composer require friendsofcake/{{lcPluginName}}:dev-master
+composer require friendsofcake/process-mq:dev-master
 ```
 
 You then need to load the plugin. You can use the shell command:
 
 ```
-bin/cake plugin load {{pluginName}}
+bin/cake plugin load ProcessMQ
 ```
 
 or by manually adding statement shown below to `bootstrap.php`:
 
 ```php
-Plugin::load('{{pluginName}}');
+Plugin::load('ProcessMQ');
 ```
 
 ## Usage
@@ -44,7 +44,7 @@ To ensure your PRs are considered for upstream, you MUST follow the [CakePHP cod
 
 ## Bugs & Feedback
 
-http://github.com/friendsofcake/{{lcPluginName}}/issues
+http://github.com/friendsofcake/process-mq/issues
 
 ## License
 
